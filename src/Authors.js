@@ -4,10 +4,9 @@ import axios from 'axios';
 
 export const Authors = () => {
   const {title, authors, setAuthors, author, setAuthor, setAuthorPosts} = useContext(GlobalContext);
-  //const titlePosts = titles.posts;
-
-  // Get all the titles
-  React.useEffect(() => {
+  
+  // fetch posts as per selected title
+  const fetchTitlePosts = () => {
     axios.get(`https://www.reddit.com/${title}.json`)
       .then(res => {
         //console.log(res);
@@ -20,7 +19,10 @@ export const Authors = () => {
           // show all posts in the start
           setAuthorPosts(newPosts);
       });
-  }, [title]);
+  };
+
+  // Get all the titles
+  React.useEffect(fetchTitlePosts, [title]);
 
   function setFields(e){
     setAuthor(e.target.value);

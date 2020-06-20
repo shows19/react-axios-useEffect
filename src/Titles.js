@@ -5,8 +5,7 @@ import axios from 'axios';
 export const Titles = () => {
   const {titlePosts, setTitlePosts, title, setTitle, setAuthor, setAuthorPosts} = useContext(GlobalContext);
 
-  // Get all the titles
-  React.useEffect(() => {
+  const fetchTitles = () => {
     axios.get(`https://www.reddit.com/subreddits.json`)
       .then(res => {
         //console.log(res);
@@ -18,7 +17,10 @@ export const Titles = () => {
           setAuthor('');
           setAuthorPosts([]);
     });
-  }, []);
+  };
+
+  // Get all the titles
+  React.useEffect(fetchTitles, []);
 
   function setFields(e){
     setTitle(e.target.value);

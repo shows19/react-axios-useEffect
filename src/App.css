@@ -32,10 +32,12 @@ tr:nth-child(even) {background-color: #b7dfff;}
 
 table{
   border-spacing: 0px; /* remove border spacing */
-  border: none; border-collapse: collapse;
+  border:1px solid red; border-collapse: collapse;
 }
-table td { border-left: 1px solid #000; }
+table td { border-left: 1px solid red;     padding: 0 10px 0 10px;}
 table td:first-child { border-left: none; }
+table thead { border-bottom: 1px solid red;}
+th {border-left: 1px solid red;}
 
 .rightBorder{
   border-right: solid;

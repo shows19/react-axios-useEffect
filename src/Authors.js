@@ -3,7 +3,7 @@ import { GlobalContext } from './GlobalContext';
 import axios from 'axios';
 
 export const Authors = () => {
-  const {title, authors, setAuthors, author, setAuthor, setAuthorPosts} = useContext(GlobalContext);
+  const {title, author, authors, setAuthors, changeAuthor} = useContext(GlobalContext);
   
   // fetch posts as per selected title
   const fetchTitlePosts = () => {
@@ -15,9 +15,6 @@ export const Authors = () => {
           .map(obj => obj.data);
   
           setAuthors(newPosts);
-          setAuthor('');
-          // show all posts in the start
-          setAuthorPosts(newPosts);
       });
   };
 
@@ -25,17 +22,7 @@ export const Authors = () => {
   React.useEffect(fetchTitlePosts, [title]);
 
   function setFields(e){
-    setAuthor(e.target.value);
-    
-    if (e.target.value === "") {
-      // show all posts
-      setAuthorPosts(authors);
-    }else{
-      const selectedPosts = authors.filter((item) => (item.author === e.target.value));
-      setAuthorPosts(selectedPosts);
-    }
-    //console.log("All posts: ",authors);
-    //console.log("Author posts: ",selectedPosts);
+    changeAuthor(e.target.value);
   };
 
   const mainURL = "https://www.reddit.com/user/";

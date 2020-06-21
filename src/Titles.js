@@ -3,7 +3,7 @@ import { GlobalContext } from './GlobalContext';
 import axios from 'axios';
 
 export const Titles = () => {
-  const {titlePosts, setTitlePosts, title, setTitle, setAuthor, setAuthorPosts} = useContext(GlobalContext);
+  const { titlePosts, setTitlePosts, title, changeTitle } = useContext(GlobalContext);
 
   const fetchTitles = () => {
     axios.get(`https://www.reddit.com/subreddits.json`)
@@ -14,18 +14,17 @@ export const Titles = () => {
           .map(obj => obj.data);
   
           setTitlePosts(newPosts);
-          setAuthor('');
-          setAuthorPosts([]);
-    });
+       })
+       .catch(error => {
+          console.log(error);
+       });
   };
 
   // Get all the titles
   React.useEffect(fetchTitles, []);
 
   function setFields(e){
-    setTitle(e.target.value);
-    setAuthor('');
-    setAuthorPosts([]);
+    changeTitle(e.target.value);
   };
  
   const mainURL = "https://www.reddit.com/";
@@ -44,7 +43,7 @@ export const Titles = () => {
       </div>
       <div className="flex selectionArea">
         <span className="flexChild">You have selected: </span><span className="red flexChild">
-        <a href={mainURL+title} target="_blank" rel="noopener noreferrer">{title}</a>
+        <a href={mainURL + title} target="_blank" rel="noopener noreferrer">{title}</a>
         </span>
       </div>
     </div>
